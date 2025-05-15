@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ZeroWaste Inventory System</title>
+    <style>
+        /* Basic reset and global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: #2d3b55;
+        }
+
+        header {
+            background-color: #2d3b55;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #2d3b55;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .container {
+            width: 85%;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .step {
+            flex: 1 1 30%;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+        }
+
+        .step h3 {
+            color: #3e64ff;
+            margin-bottom: 15px;
+        }
+
+        .step ul {
+            list-style: none;
+            margin-left: 20px;
+        }
+
+        .step ul li {
+            margin-bottom: 8px;
+        }
+
+        .action-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .action-table th, .action-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .action-table th {
+            background-color: #2d3b55;
+            color: white;
+        }
+
+        .action-table td {
+            background-color: #f9f9f9;
+        }
+
+        .action-table tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+
+        .action-table tr:hover {
+            background-color: #f0f4f8;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .section-content {
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .steps {
+                flex-direction: column;
+            }
+
+            .step {
+                flex: 1 1 100%;
+            }
+        }
+
+        .highlight {
+            color: #3e64ff;
+            font-weight: bold;
+        }
+
+        .outcome {
+            background-color: #e1f7d5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ZeroWaste Inventory: AI-powered Sustainability Assistant</h1>
+    </header>
+
+    <div class="container">
+        <section class="section-content">
+            <h2 class="section-title">🧠 How It Works – Step by Step</h2>
+
+            <div class="steps">
+                <div class="step">
+                     <h3>📥 1. Data Collection</h3>
+                    </ul>
+
+    <!-- Upload Instruction -->
+    <p><strong>Upload Format:</strong> Please ensure your Excel/CSV file contains clearly labeled columns (e.g., Item Name, Category, Quantity, Expiry Date, etc.).</p>
+
+    <!-- Upload Button -->
+    <input type="file" id="uploadFile" accept=".csv, .xlsx" style="margin-top: 10px;" />
+    <p id="uploadStatus" style="margin-top: 10px; color: green;"></p>
+</div>
+
+                </div>
+
+                <div class="step">
+                    <head>
+  <meta charset="UTF-8">
+  <title>Waste Prediction - ZeroWaste Inventory</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, button {
+      padding: 8px;
+      margin: 8px 0;
+      width: 100%;
+    }
+    .result {
+      background-color: #f0f8ff;
+      padding: 15px;
+      margin-top: 20px;
+      border-left: 5px solid #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <h2>Predict Wastage Risk</h2>
+
+  <label for="stock">Stock in Hand (kg):</label>
+  <input type="number" id="stock" placeholder="e.g. 20">
+
+  <label for="salesRate">Daily Sales Rate (kg):</label>
+  <input type="number" id="salesRate" placeholder="e.g. 5">
+
+  <label for="daysLeft">Days Left till Expiry:</label>
+  <input type="number" id="daysLeft" placeholder="e.g. 3">
+
+  <button onclick="calculateWaste()">Calculate Wastage Risk</button>
+
+  <div id="output" class="result" style="display:none;"></div>
+
+  <script>
+    function calculateWaste() {
+      const stock = parseFloat(document.getElementById('stock').value);
+      const salesRate = parseFloat(document.getElementById('salesRate').value);
+      const daysLeft = parseFloat(document.getElementById('daysLeft').value);
+
+      if (isNaN(stock) || isNaN(salesRate) || isNaN(daysLeft)) {
+        alert("Please fill all fields with valid numbers.");
+        return;
+      }
+
+      const expectedSales = salesRate * daysLeft;
+      const wastageRisk = stock - expectedSales;
+
+      let resultText = `<strong>Expected Sales Till Expiry:</strong> ${expectedSales} kg<br>`;
+      resultText += `<strong>Wastage Risk:</strong> ${wastageRisk > 0 ? wastageRisk + " kg ⚠️" : "0 kg ✅"}`;
+
+      document.getElementById('output').style.display = 'block';
+      document.getElementById('output').innerHTML = resultText;
+    }
+  </script>
+</body>
+</html>
+
+                <div class="step">
+                    <h3>🎯 3. Action Recommendations (3Rs Model)</h3>
+                    <table class="action-table">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>When?</th>
+                                <th>What Happens?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🔖 Discount</td>
+                                <td>Item nearing expiry, still sellable</td>
+                                <td>20–50% discount suggested to clear stock</td>
+                            </tr>
+                            <tr>
+                                <td>🎁 Donate</td>
+                                <td>Unsold perishable items with <2 days shelf life</td>
+                                <td>Nearby NGO/food bank alert generated</td>
+                            </tr>
+                            <tr>
+                                <td>🔁 Repurpose</td>
+                                <td>Unsold but usable (e.g., slightly stale bread)</td>
+                                <td>Suggest alternate product creation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">💻 4. Dashboard for Manager</h2>
+            <p>Manager sees:</p>
+            <ul>
+                <li>Daily wastage forecast</li>
+                <li>AI-suggested actions</li>
+                <li>Impact tracker: ₹ saved, kg avoided waste</li>
+                <li>Integrations with NGOs (like Feeding India)</li>
+            </ul>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">💡 Real-Life Use Case (Supermarket)</h2>
+            <p><strong>Situation:</strong> 100 yogurt cups expire in 3 days. Average sales/day = 10 cups. 70 cups expected to go unsold.</p>
+            <p><strong>ZeroWaste Action:</strong></p>
+            <ul>
+                <li>Action 1: Mark 50 cups at 40% off today</li>
+                <li>Action 2: Alert NGO to collect unsold items tomorrow evening</li>
+            </ul>
+            <p><strong>Outcome:</strong></p>
+            <div class="outcome">
+                70% reduction in waste, improved customer loyalty, social impact.
+            </div>
+        </section>
+
+        <section class="section-content">
+            <h2 class="section-title">📦 Future Scope</h2>
+            <ul>
+                <li>Use with pharmacies, wholesale markets, school canteens, etc.</li>
+                <li>Add barcode scanning for quicker entry.</li>
+                <li>Add app notification system for instant alerts.</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ZeroWaste Inventory. All rights reserved.</p>
+    </footer>
+</body>
+</html>
